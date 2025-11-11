@@ -1,163 +1,64 @@
-# 📦 Project Setup
+Absolutely, Daniel. Here's a comprehensive, assignment-aligned, and professional README.md tailored for your Module 11 project. It reflects your implementation of the Calculation model, factory pattern, testing strategy, and CI/CD pipeline, while guiding instructors, collaborators, or reviewers through setup, usage, and reflection.
 
 ---
 
-# 🧩 1. Install Homebrew (Mac Only)
+```markdown
+# 📊 Module 11: Calculation Service with Factory Pattern, Testing, and CI/CD
 
-> Skip this step if you're on Windows.
+## 🧩 Overview
 
-Homebrew is a package manager for macOS.  
-You’ll use it to easily install Git, Python, Docker, etc.
-
-**Install Homebrew:**
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-**Verify Homebrew:**
-
-```bash
-brew --version
-```
-
-If you see a version number, you're good to go.
+This project implements a modular and testable calculation service using FastAPI, SQLAlchemy, and Pydantic. It supports basic arithmetic operations via a factory pattern and integrates automated testing and Docker deployment through GitHub Actions. The goal is to demonstrate clean architecture, extensibility, and DevOps principles in a Python web application.
 
 ---
 
-# 🧩 2. Install and Configure Git
+## ⚙️ Features
 
-## Install Git
-
-- **MacOS (using Homebrew)**
-
-```bash
-brew install git
-```
-
-- **Windows**
-
-Download and install [Git for Windows](https://git-scm.com/download/win).  
-Accept the default options during installation.
-
-**Verify Git:**
-
-```bash
-git --version
-```
+- ✅ SQLAlchemy model for storing calculations (`id`, `a`, `b`, `type`, `result`, timestamps)
+- ✅ Pydantic schemas for input validation and output serialization
+- ✅ Factory pattern for extensible operation logic (`add`, `sub`, `mul`, `div`)
+- ✅ Unit and integration tests using `pytest`
+- ✅ CI/CD pipeline with GitHub Actions
+- ✅ Dockerized FastAPI app with PostgreSQL backend
 
 ---
 
-## Configure Git Globals
+## 📁 Project Structure
 
-Set your name and email so Git tracks your commits properly:
-
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "your_email@example.com"
 ```
-
-Confirm the settings:
-
-```bash
-git config --list
+app/
+├── models/              # SQLAlchemy models
+│   └── calculation.py
+├── operations/          # Operation classes and factory
+│   └── calculation.py
+├── schemas/             # Pydantic schemas
+│   └── calculation.py
+├── services/            # Service layer (validation, computation, persistence)
+│   └── calculator.py
+├── main.py              # FastAPI entry point
+tests/
+├── unit/                # Unit tests for schemas and factory
+├── integration/         # Integration tests for DB and routes
+├── e2e/                 # End-to-end tests (optional)
+docker-compose.yml       # Docker orchestration
+Dockerfile               # Docker image definition
+.github/workflows/       # GitHub Actions CI/CD
+│   └── main.yml
+requirements.txt         # Python dependencies
+README.md                # Project documentation
 ```
 
 ---
 
-## Generate SSH Keys and Connect to GitHub
+## 🚀 Getting Started
 
-> Only do this once per machine.
-
-1. Generate a new SSH key:
+### 1. Clone the Repository
 
 ```bash
-ssh-keygen -t ed25519 -C "your_email@example.com"
+git clone https://github.com/yourusername/module11-calculator.git
+cd module11-calculator
 ```
 
-(Press Enter at all prompts.)
-
-2. Start the SSH agent:
-
-```bash
-eval "$(ssh-agent -s)"
-```
-
-3. Add the SSH private key to the agent:
-
-```bash
-ssh-add ~/.ssh/id_ed25519
-```
-
-4. Copy your SSH public key:
-
-- **Mac/Linux:**
-
-```bash
-cat ~/.ssh/id_ed25519.pub | pbcopy
-```
-
-- **Windows (Git Bash):**
-
-```bash
-cat ~/.ssh/id_ed25519.pub | clip
-```
-
-5. Add the key to your GitHub account:
-   - Go to [GitHub SSH Settings](https://github.com/settings/keys)
-   - Click **New SSH Key**, paste the key, save.
-
-6. Test the connection:
-
-```bash
-ssh -T git@github.com
-```
-
-You should see a success message.
-
----
-
-# 🧩 3. Clone the Repository
-
-Now you can safely clone the course project:
-
-```bash
-git clone <repository-url>
-cd <repository-directory>
-```
-
----
-
-# 🛠️ 4. Install Python 3.10+
-
-## Install Python
-
-- **MacOS (Homebrew)**
-
-```bash
-brew install python
-```
-
-- **Windows**
-
-Download and install [Python for Windows](https://www.python.org/downloads/).  
-✅ Make sure you **check the box** `Add Python to PATH` during setup.
-
-**Verify Python:**
-
-```bash
-python3 --version
-```
-or
-```bash
-python --version
-```
-
----
-
-## Create and Activate a Virtual Environment
-
-(Optional but recommended)
+### 2. Create and Activate Virtual Environment
 
 ```bash
 python3 -m venv venv
@@ -165,100 +66,134 @@ source venv/bin/activate   # Mac/Linux
 venv\Scripts\activate.bat  # Windows
 ```
 
-### Install Required Packages
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-# 🐳 5. (Optional) Docker Setup
-
-> Skip if Docker isn't used in this module.
-
-## Install Docker
-
-- [Install Docker Desktop for Mac](https://www.docker.com/products/docker-desktop/)
-- [Install Docker Desktop for Windows](https://www.docker.com/products/docker-desktop/)
-
-## Build Docker Image
+### 4. Run the App Locally
 
 ```bash
-docker build -t <image-name> .
+uvicorn main:app --reload
 ```
 
-## Run Docker Container
+Visit [http://localhost:8000/docs](http://localhost:8000/docs) for Swagger UI.
+
+---
+
+## 🧪 Testing
+
+### Run All Tests
 
 ```bash
-docker run -it --rm <image-name>
+pytest
 ```
 
----
-
-# 🚀 6. Running the Project
-
-- **Without Docker**:
+### Check Coverage
 
 ```bash
-python main.py
+pytest --cov=app
 ```
 
-(or update this if the main script is different.)
+### Test Types
 
-- **With Docker**:
+- ✅ Unit tests for operation classes and schema validation
+- ✅ Integration tests for database CRUD and FastAPI routes
+- ✅ Edge cases: divide-by-zero, invalid operation types
+
+---
+
+## 🐳 Docker Setup
+
+### Build Image
 
 ```bash
-docker run -it --rm <image-name>
+docker build -t module11_is601:latest .
 ```
 
----
-
-# 📝 7. Submission Instructions
-
-After finishing your work:
+### Run Container
 
 ```bash
-git add .
-git commit -m "Complete Module X"
-git push origin main
+docker run -d -p 8000:8000 --name module11_container module11_is601:latest
 ```
 
-Then submit the GitHub repository link as instructed.
+### Docker Compose (Recommended)
+
+```bash
+docker-compose build
+docker-compose up -d
+```
+
+Access app: [http://localhost:8000](http://localhost:8000)  
+Access pgAdmin: [http://localhost:5050](http://localhost:5050)
 
 ---
 
-# 🔥 Useful Commands Cheat Sheet
+## 🔁 CI/CD Pipeline
 
-| Action                         | Command                                          |
-| ------------------------------- | ------------------------------------------------ |
-| Install Homebrew (Mac)          | `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"` |
-| Install Git                     | `brew install git` or Git for Windows installer |
-| Configure Git Global Username  | `git config --global user.name "Your Name"`      |
-| Configure Git Global Email     | `git config --global user.email "you@example.com"` |
-| Clone Repository                | `git clone <repo-url>`                          |
-| Create Virtual Environment     | `python3 -m venv venv`                           |
-| Activate Virtual Environment   | `source venv/bin/activate` / `venv\Scripts\activate.bat` |
-| Install Python Packages        | `pip install -r requirements.txt`               |
-| Build Docker Image              | `docker build -t <image-name> .`                |
-| Run Docker Container            | `docker run -it --rm <image-name>`               |
-| Push Code to GitHub             | `git add . && git commit -m "message" && git push` |
+GitHub Actions automates:
+
+- 🧪 Test job: runs `pytest` on push/PR
+- 🐳 Docker job: builds and pushes image to Docker Hub
+
+### Docker Hub Repo
+
+[https://hub.docker.com/r/yourusername/fastapi-calc](https://hub.docker.com/r/yourusername/fastapi-calc)
 
 ---
 
-# 📋 Notes
+## 🧠 Reflection
 
-- Install **Homebrew** first on Mac.
-- Install and configure **Git** and **SSH** before cloning.
-- Use **Python 3.10+** and **virtual environments** for Python projects.
-- **Docker** is optional depending on the project.
+This module reinforced key backend development skills:
+
+- Implemented a clean service layer using SQLAlchemy and Pydantic
+- Applied the factory pattern to decouple operation logic
+- Used GitHub Actions to automate testing and deployment
+- Dockerized the app for reproducible deployment
+
+### Challenges Faced
+
+- Refactoring from functions to classes while maintaining test coverage
+- Debugging CI/CD workflows and Docker networking
+- Validating edge cases like divide-by-zero and unsupported operations
 
 ---
 
-# 📎 Quick Links
+## 📎 Submission Checklist
 
-- [Homebrew](https://brew.sh/)
-- [Git Downloads](https://git-scm.com/downloads)
-- [Python Downloads](https://www.python.org/downloads/)
+- [x] SQLAlchemy model and Pydantic schemas
+- [x] Factory pattern implemented
+- [x] Unit and integration tests passing
+- [x] GitHub Actions workflow configured
+- [x] Docker image pushed to Docker Hub
+- [x] README and reflection included
+- [x] GitHub repo link submitted
+
+---
+
+## 📚 Learning Outcomes
+
+- CLO3: Create Python applications with automated testing
+- CLO4: Set up GitHub Actions for CI/CD
+- CLO9: Apply containerization techniques using Docker
+- CLO11: Integrate Python with SQL databases
+- CLO12: Validate JSON with Pydantic
+- CLO13: Apply secure software development practices
+
+---
+
+## 📎 Helpful Links
+
+- [FastAPI Docs](https://fastapi.tiangolo.com/)
+- [SQLAlchemy Docs](https://docs.sqlalchemy.org/)
+- [Pydantic Docs](https://docs.pydantic.dev/)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-- [GitHub SSH Setup Guide](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
+- [GitHub Actions](https://docs.github.com/en/actions)
+- [Swagger UI](http://localhost:8000/docs)
+
+```
+
+---
+
+Would you like help generating a matching reflection document or a screenshot checklist for submission?
