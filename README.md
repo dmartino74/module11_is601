@@ -1,8 +1,4 @@
-Absolutely, Daniel. Here's a comprehensive, assignment-aligned, and professional README.md tailored for your Module 11 project. It reflects your implementation of the Calculation model, factory pattern, testing strategy, and CI/CD pipeline, while guiding instructors, collaborators, or reviewers through setup, usage, and reflection.
 
----
-
-```markdown
 # 📊 Module 11: Calculation Service with Factory Pattern, Testing, and CI/CD
 
 ## 🧩 Overview
